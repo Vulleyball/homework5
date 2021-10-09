@@ -259,8 +259,8 @@
         "point": "transparent",
         "type": "text",
         "align": "left",
-        "dx": -80,
-        "dy": 60,
+        "dx": -90,
+        "dy": 20,
         "fontSize": 14,
         "fontStyle": "italic",
         "color": "teal"
@@ -296,7 +296,7 @@
         "type": "text",
         "align": "left",
         "dx": -380,
-        "dy": -40,
+        "dy": -20,
         "fontSize": 14,
         "fontStyle": "italic",
         "color": "teal"

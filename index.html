@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <title>Homework 10</title>
+    <link rel="stylesheet" type="text/css" href="styles.css" media="all">
+
+
+</head>
+<body>
+    <div class="page">
+        <!-- Option 1: Bootstrap Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous">
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script>
+        <!-- Option 2: Separate Popper and Bootstrap JS -->
+        <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-W8fXfP3gkOKtndU4JGtKDvXbO53Wy8SZCQHczT5FMiiqmQfUpWbYdTil/SxwZgAN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js" integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/" crossorigin="anonymous"></script>
+    -->
+        <!-- Optional JavaScript; choose one of the two! -->
+        <script type="text/javascript">
+            var spec1 = "test6.vg.json";
+            vegaEmbed('#bar_chart', spec1).then(function (result) {
+                // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+            }).catch(console.error);
+        </script>
+        <script type="text/javascript">
+            var spec2 = "test.vg.json";
+            vegaEmbed('#choropleth_map', spec2).then(function (result) {
+                // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+            }).catch(console.error);
+        </script>
+        <script type="text/javascript">
+            var spec3 = "test5.vg.json";
+            vegaEmbed('#line_chart', spec3).then(function (result) {
+                // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+            }).catch(console.error);
+        </script>
+        <script type="text/javascript">
+            var spec4 = "test2.vg.json";
+            vegaEmbed('#bubble_chart', spec4).then(function (result) {
+                // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+            }).catch(console.error);
+        </script>
+        <script type="text/javascript">
+            var spec5 = "test8.vg.json";
+            vegaEmbed('#choropleth_map2', spec5).then(function (result) {
+                // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+            }).catch(console.error);
+        </script>
+        <script type="text/javascript">
+            var spec6 = "hiv.vg.json";
+            vegaEmbed('#hiv1', spec6).then(function (result) {
+                // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+            }).catch(console.error);
+        </script>
+        <script type="text/javascript">
+            var spec7 = "hiv2.vg.json";
+            vegaEmbed('#hiv2', spec7).then(function (result) {
+                // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+            }).catch(console.error);
+        </script>
+        <script type="text/javascript">
+            var spec8 = "hiv3.vg.json";
+            vegaEmbed('#hiv3', spec8).then(function (result) {
+                // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+            }).catch(console.error);
+        </script>
+        <script type="text/javascript">
+            var spec9 = "hiv4.vg.json";
+            vegaEmbed('#hiv4', spec9).then(function (result) {
+                // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+            }).catch(console.error);
+        </script>
+        <div class="container">
+
+            <hr />
+            <div class="row">
+                <div class="col">
+                    <div class="detail-box">
+                        <div class="heading_container ">
+                            <h2>
+                                Body mass index
+                            </h2>
+                        </div>
+                        <p style="width: 675px; padding-top: 15px;">
+                            In the last few decades we have seen a significant development in
+                            our health system all over the world. Advanced techonology has kept the number of
+                            deaths due to health diseases decrease remarkably.
+                            However, it appears that some other diseases have emerged and posted some risks to
+                            people. This visualisation demonstrates how wealth relates to the life expectancy and BMI among different continents, including
+                            <span style="color: #6a3d9a;"> Afica</span>, <span style="color: #127273;"> Asia</span>,
+                            <span style="color: #1f77b4;"> Europe</span>, <span style="color: #bf130d;"> North
+                                America</span>,
+                            <span style="color: #c49c94;"> Oceania</span>, and <span style="color: #fca636;"> South
+                                Africa</span>.
+
+                        </p>
+                        <div class="btn-box">
+                            <a href="https://en.wikipedia.org/wiki/List_of_countries_by_body_mass_index" target="blank">
+                                Get data here
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div id="choropleth_map"></div>
+                </div>
+            </div>
+            <hr />
+
+            <div class="row">
+                <div class="col">
+                    <div id="bubble_chart"> </div>
+                </div>
+                <div class="col">
+                    <div class="detail-box">
+                        <div class="heading_container">
+                            <h2 style="line-height: 1.5em;">
+                                WEALTH
+                            </h2>
+                            <p class="adjust_line_height">
+                                An academic study by researchers at the Urban Institute and Virginia Commonwealth University assessing the intricate 
+                        connection between health and income backs up the approach. The main takeaway of the report published in 2015 is, 
+                        in simple terms, that those who are healthier and who live longer tend to earn more. Health and income correlate across the socioeconomic spectrum. 
+                        That is to say, the richest have fewer poor-health conditions than the upper-middle class, who in turn are fitter 
+                        and healthier than the lower-middle class, for example, with the pattern continuing.
+
+                            </p>
+                        </div>
+                        <div class="btn-box" , style="margin-top: 10px;">
+                            <a href="https://ourworldindata.org/grapher/life-expectancy-vs-gdp-per-capita">
+                                Get data here
+                            </a>
+                        </div>
+
+                        
+
+
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- client section -->
+
+
+
+</body>
+
+</html>
