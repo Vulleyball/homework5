@@ -4,7 +4,7 @@
   "width": 480,
   "height": 350,
   "data": {
-    "url": "https://raw.githubusercontent.com/Vulleyball/assignment_test/main/new_data2.csv"
+    "url": "https://raw.githubusercontent.com/Vulleyball/Vulleyball_3179/main/new_data2.csv"
   },
   "params": [{
       "name": "GDP_Above",
@@ -237,35 +237,74 @@
     },
     {
       "transform": [
-
         {
-          "calculate": "'Highest BMI index: ' ",
+          "window": [{
+              "op": "rank",
+              "as": "ranking"
+          }],
+          "sort": [{
+              "field": "Average_GDP",
+              "order": "ascending"
+          }]
+      },
+      {
+          "filter": "datum.ranking == 1"
+      },
+      {
+          "calculate": "'Lowest GDP: ' + datum['Country']",
           "as": "text_annotation"
-        },
-        { "filter": "datum.Country == 'South Africa'"}
+      }
       ],
       "mark": {
-        
+        "point": "transparent",
         "type": "text",
         "align": "left",
-        "dy": -115,
-        "dx": -190,
+        "dx": -80,
+        "dy": 60,
         "fontSize": 14,
         "fontStyle": "italic",
         "color": "teal"
       },
       "encoding": {
         "text": {
-          "field": "text_annotation",
-          "type": "temporal",
-          "condition": {
-            "test": "datum.Country == 'South Africa'",
-            "value": ["There are no countries that have ",
-            "low life expectancy and high salaries",
-          "here around this area"]
-          }
+          "field": "text_annotation"
         }
-        
+      }
+    },
+    {
+      "transform": [
+        {
+          "window": [{
+              "op": "rank",
+              "as": "ranking"
+          }],
+          "sort": [{
+              "field": "Life expectancy",
+              "order": "descending"
+          }]
+      },
+      {
+          "filter": "datum.ranking == 1"
+      },
+      {
+          "calculate": "'Longest life span: ' + datum['Country']",
+          "as": "text_annotation2"
+      }
+      ],
+      "mark": {
+        "point": "transparent",
+        "type": "text",
+        "align": "left",
+        "dx": -380,
+        "dy": -40,
+        "fontSize": 14,
+        "fontStyle": "italic",
+        "color": "teal"
+      },
+      "encoding": {
+        "text": {
+          "field": "text_annotation2"
+        }
       }
     }
   ]
