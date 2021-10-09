@@ -1,0 +1,272 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Life expectancy vs GDP per capita",
+  "width": 480,
+  "height": 350,
+  "data": {
+    "url": "https://raw.githubusercontent.com/Vulleyball/assignment_test/main/new_data2.csv"
+  },
+  "params": [{
+      "name": "GDP_Above",
+      "value": 0,
+      "bind": {
+        "input": "range",
+        "min": 0,
+        "max": 50000,
+        "step": 200,
+        "name": "Minimum GDP: "
+      }
+    },
+    {
+      "name": "Year_above",
+      "value": 2000,
+      "bind": {
+        "input": "range",
+        "min": 2000,
+        "max": 2015,
+        "step": 1,
+        "name": "Year selection: "
+      }
+    },
+    {
+      "name": "Continent_selection",
+      "bind": {
+        "input": "select",
+        "options": [
+          null,
+          "North America",
+          "South America",
+          "Europe",
+          "Africa",
+          "Asia",
+          "Oceania"
+        ],
+        "labels": [
+          "Show All",
+          "North America",
+          "South America",
+          "Europe",
+          "Africa",
+          "Asia",
+          "Oceania"
+        ],
+        "name": "Continent Selection: "
+
+      }
+    }
+  ],
+  "transform": [{
+      "filter": "datum.Year == Year_above"
+    },
+    {
+      "filter": "datum.GDP_total > 200"
+    },
+    {
+      "filter": "datum['Life expectancy'] >40"
+    },
+    {
+      "filter": "Continent_selection == null || datum.Continent == Continent_selection"
+    },
+    {
+      "calculate": "datum['Measles ']/datum.Population * 10000",
+      "as": "Measles"
+    },
+    {
+      "calculate": "datum['GDP_total']/datum.Population",
+      "as": "Average_GDP"
+    },
+    {
+      "filter": "datum['GDP_total']/datum.Population > GDP_Above"
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "Life expectancy",
+      "type": "quantitative",
+      "title": "Average life expectancy",
+      "axis": {
+        "tickCount": 5
+      },
+      "scale": {
+        "type": "symlog",
+        "domain": [40, 90]
+      }
+    },
+    "y": {
+      "field": "Average_GDP",
+      "type": "quantitative",
+      "axis": {
+        "tickCount": 4
+      },
+      "scale": {
+        "type": "log",
+        "domain": [50, 500000]
+      }
+    }
+  },
+
+  "layer": [
+    
+    {
+      "selection": {
+        "continent_highlight": {
+          "type": "multi",
+          "fields": ["Continent"],
+          "bind": "legend"
+
+        }
+      },
+      "mark": "circle",
+      "encoding": {
+        "size": {
+          "field": "Population",
+          "type": "quantitative",
+          "scale": {
+            "type": "threshold",
+            "domain": [1000000, 10000000, 50000000, 100000000, 500000000],
+            "range": [10, 50, 150, 200, 300, 400]
+          },
+          "legend": {
+            "format": ".1s"
+          }
+        },
+        "color": {
+          "field": "Continent",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "Africa",
+              "Asia",
+              "Europe",
+              "North America",
+              "Oceania",
+              "South America"
+            ],
+            "range": [
+              "#6a3d9a",
+              "#127273",
+              "#1f77b4",
+              "#bf130d",
+              "#c49c94",
+              "#fca636"
+            ]
+          }
+        },
+        "opacity": {
+          "condition": {
+            "selection": "continent_highlight",
+            "value": 0.6
+          },
+          "value": 0.2
+        },
+        "tooltip": [{
+            "field": "Country",
+            "type": "nominal"
+          },
+          {
+            "field": "Average_GDP",
+            "type": "quantitative",
+            "format": ","
+          },
+          {
+            "field": "Year",
+            "type": "ordinal",
+            "format": ","
+          },
+          {
+            "field": "Measles",
+            "type": "quantitative",
+            "format": ".2f"
+          }
+        ],
+        "text": {
+          "field": "Country"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "baseline": "middle",
+        "dx": -15,
+        "fontSize": 11.5,
+        "fontStyle": "italic"
+      },
+      "encoding": {
+        "text": {
+          "field": "Country",
+          "type": "nominal"
+        },
+        "color": {
+          "value": "black"
+        },
+        "opacity": {
+          "condition": {
+            "test": "datum['Country'] == 'China' || datum['Country'] == 'Russian Federation' || datum['Country'] == 'Brazil' || datum['Country'] == 'Australia' || datum['Country'] == 'United States' || datum['Country'] == 'South Africa'",
+            "value": 1
+          },
+          "value": 0
+        },
+        "tooltip": [{
+            "field": "Country",
+            "type": "nominal"
+          },
+          {
+            "field": "Average_GDP",
+            "type": "quantitative",
+            "format": ","
+          },
+          {
+            "field": "Life expectancy",
+            "type": "quantitative",
+            "format": ","
+          },
+          {
+            "field": "Population",
+            "type": "quantitative",
+            "format": ","
+          },
+          {
+            "field": "Measles",
+            "type": "quantitative",
+            "format": ".2f"
+          }
+        ]
+      }
+    },
+    {
+      "transform": [
+
+        {
+          "calculate": "'Highest BMI index: ' ",
+          "as": "text_annotation"
+        },
+        { "filter": "datum.Country == 'South Africa'"}
+      ],
+      "mark": {
+        
+        "type": "text",
+        "align": "left",
+        "dy": -115,
+        "dx": -190,
+        "fontSize": 14,
+        "fontStyle": "italic",
+        "color": "teal"
+      },
+      "encoding": {
+        "text": {
+          "field": "text_annotation",
+          "type": "temporal",
+          "condition": {
+            "test": "datum.Country == 'South Africa'",
+            "value": ["There are no countries that have ",
+            "low life expectancy and high salaries",
+          "here around this area"]
+          }
+        }
+        
+      }
+    }
+  ]
+}

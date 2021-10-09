@@ -1,0 +1,53 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "description": "Plots two functions using a generated sequence.",
+    "data": {
+        "url": "https://raw.githubusercontent.com/Vulleyball/assignment_test/main/new_data2.csv"
+      },
+      "params": [{
+        "name": "Year_Above",
+        "value": 2000,
+        "bind": {
+          "input": "range",
+          "min": 2000,
+          "max": 2015,
+          "step": 1,
+          "name": "Year: "
+        }
+      }],
+    "transform": [{
+        "filter": "datum.Year == Year_Above"
+    }],
+    "vconcat": [
+      {
+        "width": 300,
+        "height": 150,
+        "mark": "bar",
+        "encoding": {
+          "y": {"type": "nominal", "field": "Continent"},
+          "x": {"field": "Under5s", "type": "quantitative","aggregate": "sum"}
+        }
+        
+      },
+      {
+        "width": 300,
+        "height": 150,
+        "mark": "bar",
+        "encoding": {
+          "y": {"type": "nominal", "field": "Continent"},
+          "x": {"field": "Under5s", "type": "quantitative","aggregate": "sum"}
+        }
+        
+      },
+      {
+        "width": 300,
+        "height": 150,
+        "mark": "bar",
+        "encoding": {
+          "y": {"type": "nominal", "field": "Continent"},
+          "x": {"field": "70+", "type": "quantitative","aggregate": "sum"}
+        }
+      }
+    ],
+    "resolve": {"scale": {"y": "shared", "color": "independent"}}
+  }

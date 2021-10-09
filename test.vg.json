@@ -1,0 +1,136 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Body mass index in 2015",
+    "fontSize": 20,
+    "font": "Roboto"
+  },
+  "width": 500,
+  "height": 280,
+  "data": {
+    "url": "https://raw.githubusercontent.com/Vulleyball/data_1/main/final_map.json",
+    "format": {
+      "type": "topojson",
+      "feature": "custom.geo"
+    }
+  },
+  "layer": [
+
+    {
+      "transform": [{
+        "calculate": "'Data is not available in ' + datum.properties.name_long",
+        "as": "note"
+      }],
+      "mark": {
+        "type": "geoshape",
+        "fill": "lightgray",
+        "stroke": "white"
+      },
+      "encoding": {
+        "tooltip": {
+          "field": "note"
+        }
+      }
+    },
+    {
+      "transform": [
+
+        {
+          "lookup": "properties.name_long",
+          "from": {
+            "data": {
+              "url": "https://raw.githubusercontent.com/Vulleyball/Vulleyball_3179/main/cancer_new2.csv"
+            },
+            "key": "Country",
+            "fields": ["BMI", "Year", "Country"]
+
+          }
+
+        },
+        {
+          "filter": "datum['BMI'] > 0"
+        },
+        {
+          "calculate": "datum['BMI'] +0.05",
+          "as": "Life_expectancy"
+        }
+      ],
+
+
+      "projection": {
+        "type": "equalEarth"
+      },
+      "mark": {
+        "type": "geoshape",
+        "stroke": "white"
+      },
+      "encoding": {
+        "color": {
+          "field": "BMI",
+          "type": "quantitative",
+          "scale": {
+            "type": "threshold",
+            "domain": [21, 23, 25, 27, 29]
+          }
+        },
+        "tooltip": [{
+            "field": "properties.name_long",
+            "type": "nominal",
+            "title": "Country"
+          },
+          {
+            "title": "BMI index",
+            "field": "BMI",
+            "type": "quantitative"
+          }
+        ],
+        "text": {
+          "field": "text_annotation"
+        }
+      }
+    },
+    {
+      "transform": [{
+          "lookup": "properties.name_long",
+          "from": {
+            "data": {
+              "url": "https://raw.githubusercontent.com/Vulleyball/Vulleyball_3179/main/cancer_new2.csv"
+            },
+            "key": "Country",
+            "fields": ["BMI", "Population", "Country", "Year"]
+
+          }
+
+        }, {
+          "window": [{
+            "op": "rank",
+            "as": "ranking"
+          }],
+          "sort": [{
+            "field": "BMI",
+            "order": "descending"
+          }]
+        },
+        {
+          "filter": "datum.ranking == 3"
+        },
+
+        {
+          "calculate": "'Highest BMI index: ' + datum['Country']",
+          "as": "text_annotation"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dy": 80
+      },
+      "encoding": {
+        "text": {
+          "field": "text_annotation"
+        }
+      }
+    }
+
+  ]
+}

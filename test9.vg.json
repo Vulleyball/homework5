@@ -1,0 +1,115 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "Median house price per suburb (2010-2020)",
+    "width": "container",
+    "height": 500,
+    "projection": {
+        "type": "equirectangular",
+        "center": { "expr": "center_to" },
+        "scale": { "expr": "zoom_level" }
+    },
+    "params": [{
+            "name": "Year_selection",
+            "value": 2000,
+            "bind": {
+                "input": "range",
+                "min": 2000,
+                "max": 2015,
+                "step": 1,
+                "name": "Year:  "
+            }
+        },
+        {
+            "name": "zoom_level",
+            "value": 30000,
+            "bind": {
+                "input": "range",
+                "min": 3500,
+                "max": 60000,
+                "step": 100,
+                "name": "Zoom: "
+            }
+        },
+        {
+            "name": "center_to",
+            "value": [0,0],
+            "bind": {
+                "input": "select",
+                "options": [
+                    [145, -37.95],
+                    [35, 105],
+                    [38, -97],
+                    [-29,24, -38.1]
+                ],
+                "labels": ["Equator", "China", "USA", "South Africa"],
+                "name": "Map Centre: "
+            }
+        }
+    ],
+    "layer": [{
+            "data": {
+                "url": "https://raw.githubusercontent.com/Vulleyball/data_1/main/final_map.json",
+                "format": { "type": "topojson", "feature": "custom.geo" }
+            },
+            "transform": [{
+                "calculate": "'Data is not available in ' + datum.properties.name_long",
+                "as": "note"
+            }],
+            "mark": {
+                "type": "geoshape",
+                "fill": "#ddd",
+                "stroke": "white",
+                "strokeWidth": 1
+            },
+            "encoding": { "tooltip": { "field": "note" } }
+        },
+        {
+            "data": {
+                "url": "https://raw.githubusercontent.com/Vulleyball/assignment_test/main/new_data2.csv"
+            },
+            "transform": [{
+                    "lookup": "Country",
+                    "from": {
+                        "data": {
+                            "url": "https://raw.githubusercontent.com/Vulleyball/data_1/main/final_map.json",
+                            "format": {
+                                "type": "topojson",
+                                "feature": "custom.geo"
+                            }
+                        },
+                        "key": "properties.name_long"
+                    },
+                    "as": "geo"
+                },
+                { "filter": "datum.Year == Year_selection" }
+            ],
+            "mark": { "type": "geoshape", "stroke": "#fff", "strokeWidth": 0.5 },
+            "encoding": {
+                "shape": { "field": "geo", "type": "geojson" },
+                "color": {
+                    "field": "BMI ",
+                    "type": "quantitative",
+                    "scale": {
+                        "domain": [
+                            400000,
+                            1800000
+                        ],
+                        "scheme": "reds"
+                    },
+                    "legend": { "format": ".2s" }
+                },
+                "tooltip": [
+                    { "field": "Country", "type": "nominal", "title": "Suburb" },
+                    {
+                        "field": "BMI ",
+                        "type": "quantitative",
+                        "title": "Median Price",
+                        "format": ","
+                    },
+                    { "field": "Year", "type": "quantitative", "title": "Year" }
+                ]
+            }
+        }
+    ],
+    "config": {}
+}

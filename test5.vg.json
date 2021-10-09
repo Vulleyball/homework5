@@ -1,0 +1,71 @@
+{   
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "description": "Plots two functions using a generated sequence.",
+    "data": {
+        "url": "https://raw.githubusercontent.com/Vulleyball/assignment_test/main/cancer_new2.csv"
+    },
+    "height": 380,
+    "width": 650,
+    "mark": "bar",
+    "encoding": {
+        "x": {
+            "field": "Year"
+        },
+        "y": {
+            "field": "Air_deaths",
+            "aggregate": "sum"
+            
+            
+        },
+        "color": {
+            "field": "Continent",
+            "scale": {
+                "domain": [
+                  "Africa",
+                  "Asia",
+                  "Europe",
+                  "North America",
+                  "Oceania",
+                  "South America"
+                ],
+                "range": [
+                    "#6a3d9a",
+                    "#127273",
+                    "#1f77b4",
+                    "#bf130d",
+                    "#c49c94",
+                    "#fca636"
+                ]
+              }
+        },
+        "tooltip":[
+            {
+                "field": "Year",
+                "title": "Year"
+            },
+            {
+                "field": "Air_deaths",
+                "title": "Average death"
+            },
+            {
+                "field": "Country",
+                "title": "Country"
+            }
+        ]
+    },
+    "config": {
+        "title": {
+            "font": "sans-serif",
+            "fontSize": 14
+        },
+        "legend": {
+            "title": null,
+            "orient": "bottom",
+            "layout": {
+                "bottom": {
+                    "anchor": "left"
+                }
+            }
+        }
+    }
+}

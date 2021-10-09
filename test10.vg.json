@@ -1,0 +1,117 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "data": {
+        "url": "https://raw.githubusercontent.com/Vulleyball/Vulleyball_3179/main/cancer_new2.csv"
+    },
+    "hconcat": [{
+            "width": 250,
+            "height": 150,
+            "mark": "line",
+            "title": {
+                "text": "Use this line chart to filter"
+            },
+            "params": [{
+                "name": "time_brush",
+                "select": {
+                    "type": "interval",
+                    "encodings": ["x"]
+
+                }
+            }],
+            "transform": [{
+                "calculate": "datum.Cancer/datum.Population",
+                "as": "mean_cancer"
+            }],
+            "encoding": {
+                "x": {
+                    "field": "Year",
+                    "timeUnit": "year",
+                    "axis": {
+                        "title": "",
+                        "format": "%Y"
+                    }
+                },
+                "y": {
+                    "field": "Cancer",
+                    "aggregate": "mean",
+                    "axis": {
+                        "tickCount": 3
+                    },
+                    "title": null,
+                    "scale": {
+                        "type": "symlog"
+                    }
+                },
+                "color": {
+                    "field": "Continent",
+                    "type": "nominal",
+                    "title": null,
+                    "scale": {
+                        "domain": [
+                            "Africa",
+                            "Asia",
+                            "Europe",
+                            "North America",
+                            "Oceania",
+                            "South America"
+                        ],
+                        "range": [
+                            "#6a3d9a",
+                            "#127273",
+                            "#1f77b4",
+                            "#bf130d",
+                            "#c49c94",
+                            "#fca636"
+                        ]
+                    }
+                }
+
+            }
+        },
+        {
+            "width": 250,
+            "height": 150,
+            "mark": "bar",
+            "transform": [{
+                "filter": {
+                    "param": "time_brush"
+                }
+            }],
+            "encoding": {
+                "y": {
+                    "type": "nominal",
+                    "field": "Continent",
+                    "title": null
+                },
+                "x": {
+                    "field": "Lung",
+                    "type": "quantitative",
+                    "aggregate": "sum"
+                },
+                "color": {
+                    "field": "Continent",
+                    "type": "nominal",
+                    "title": null,
+                    "scale": {
+                        "domain": [
+                            "Africa",
+                            "Asia",
+                            "Europe",
+                            "North America",
+                            "Oceania",
+                            "South America"
+                        ],
+                        "range": [
+                            "#6a3d9a",
+                            "#127273",
+                            "#1f77b4",
+                            "#bf130d",
+                            "#c49c94",
+                            "#fca636"
+                        ]
+                    }
+                }
+            }
+        }
+    ]
+}

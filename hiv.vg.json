@@ -1,0 +1,66 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "description": "Stock prices of 5 Tech Companies over Time.",
+    "title": "Under 5",
+    "data": {
+        "url": "https://raw.githubusercontent.com/Vulleyball/assignment_test/main/new_data2.csv"
+    },
+    "mark": {
+        "type": "line",
+        "point": {
+            "filled": false,
+            "fill": "white"
+        }
+    },
+    "transform": [{
+        "calculate": "datum['GDP_total']/datum.Population",
+        "as": "Average_GDP"
+    }],
+    "encoding": {
+        "x": {
+            "field": "Year",
+            "type": "ordinal",
+            "axis": null
+        },
+        "y": {
+            "aggregate": "mean",
+            "field": "Under5s",
+            "type": "quantitative",
+            "title": null
+        },
+        "color": {
+            "field": "Continent",
+            "legend": null,
+            "type": "nominal",
+            "scale": {
+                "domain": [
+                  "Africa",
+                  "Asia",
+                  "Europe",
+                  "North America",
+                  "Oceania",
+                  "South America"
+                ],
+                "range": [
+                    "#6a3d9a",
+                    "#127273",
+                    "#1f77b4",
+                    "#bf130d",
+                    "#c49c94",
+                    "#fca636"
+                ]
+              }
+        },  
+        "tooltip": [{
+                "field": "Year",
+                "type": "ordinal"
+            },
+            {
+                "field": "Under5s",
+                "aggregate": "mean",
+                "type": "quantitative",
+                "title": "Average per 1000 people"
+            }
+        ]
+    }
+}

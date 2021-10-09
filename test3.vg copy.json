@@ -1,0 +1,186 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "url": "https://raw.githubusercontent.com/Vulleyball/assignment_test/main/new_data2.csv"
+  },
+  "params": [{
+    "name": "Year_above",
+    "value": 2000,
+    "bind": {
+      "input": "range",
+      "min": 2000,
+      "max": 2015,
+      "step": 1,
+      "name": "Year: "
+    }
+  }],
+  "transform": [{
+    "filter": "datum.Year == Year_above"
+  },
+  {
+    "calculate": "datum['GDP_total']/datum.Population",
+    "as": "Average_GDP"
+  }
+],
+  "mark": "bar",
+  "encoding": {
+    "y": {
+      "field": "Continent",
+      "type": "nominal",
+      "title": null,
+      "scale": {
+        "paddingInner": 0.25
+      }
+    },
+    "x": {
+      "field": "Under5s",
+      "type": "quantitative",
+      "scale": {
+        "range": [0,800],
+        "rangeMax": 800
+      }
+    },
+    "color": {
+      "field": "Continent",
+      "type": "nominal",
+      "scale": {
+        "domain": [
+          "Africa",
+          "Asia",
+          "Europe",
+          "North America",
+          "Oceania",
+          "South America"
+        ],
+        "range": [
+          "#6a3d9a",
+              "#127273",
+              "#1f77b4",
+              "#bf130d",
+              "#c49c94",
+              "#fca636"
+        ]
+    },
+      "legend": null
+    },
+    "tooltip": [{
+      "field": "Continent",
+      "type": "nominal"
+    },
+    {
+      "field": "Under5s",
+      "type": "quantitative",
+      "format": ","
+    },
+    {
+      "field": "Year",
+      "type": "ordinal",
+      "format": ","
+    }
+  ]
+  },
+  "config": {
+    "axisX": {
+      "labelFontSize": 12
+    },
+    "axisY": {
+      "labelFontSize": 12
+    },
+    "arc": {
+      "fill": "#30a2da"
+    },
+    "area": {
+      "fill": "#30a2da"
+    },
+    "axis": {
+      "domainColor": "#cbcbcb",
+      "grid": false,
+      "gridColor": "#cbcbcb",
+      "gridWidth": 1,
+      "labelColor": "#999",
+      "labelFontSize": 15,
+      "titleColor": "#333",
+      "tickColor": "#cbcbcb",
+      "tickSize": 2,
+      "titleFontSize": 12,
+      "titleAlign": "center",
+      "titlePadding": 8,
+      "labelPadding": 3,
+      "titleFontWeight": "bold",
+      "titleFont": "Lato"
+    },
+    "axisBand": {
+      "grid": false
+    },
+    "background": "#f0f0f0",
+    "group": {
+      "fill": "#f0f0f0"
+    },
+    "legend": {
+      "labelColor": "#333",
+      "labelFontSize": 12,
+      "padding": 1,
+      "symbolSize": 20,
+      "symbolType": "square",
+      "titleColor": "#333",
+      "titleFontSize": 14,
+      "titlePadding": 10,
+      "titleFont": "Times New Roman"
+    },
+    "line": {
+      "stroke": "#30a2da",
+      "strokeWidth": 2
+    },
+    "path": {
+      "stroke": "#30a2da",
+      "strokeWidth": 0.5
+    },
+    "rect": {
+      "fill": "#30a2da"
+    },
+    "range": {
+      "category": [
+        "#30a2da",
+        "#fc4f30",
+        "#e5ae38",
+        "#6d904f",
+        "#8b8b8b",
+        "#b96db8",
+        "#ff9e27",
+        "#56cc60",
+        "#52d2ca",
+        "#52689e",
+        "#545454",
+        "#9fe4f8"
+      ],
+      "diverging": [
+        "#cc0020",
+        "#e77866",
+        "#f6e7e1",
+        "#d6e8ed",
+        "#91bfd9",
+        "#1d78b5"
+      ],
+      "heatmap": ["#d6e8ed", "#cee0e5", "#91bfd9", "#549cc6", "#1d78b5"]
+    },
+    "point": {
+      "filled": true,
+      "shape": "circle"
+    },
+    "shape": {
+      "stroke": "#30a2da"
+    },
+    "bar": {
+      "binSpacing": 2,
+      "fill": "#30a2da",
+      "stroke": null
+    },
+    "title": {
+      "anchor": "middle",
+      "fontSize": 15,
+      "fontWeight": 600,
+      "offset": 15,
+      "font": "Lato"
+    }
+  }
+}
