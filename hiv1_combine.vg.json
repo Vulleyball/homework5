@@ -1,0 +1,90 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "data": {
+        "url": "https://raw.githubusercontent.com/Vulleyball/assignment_test/main/new_data2.csv"
+    },
+    "title": "Average incidence per 1000 people among different age groups",
+    "repeat": ["Under5s", "5_to_14", "15_to_49", "50_to_69"],
+    "columns": 2,
+    "spec": {
+        "width": 230,
+        "height": 150,
+        "mark": {
+            "type": "line",
+            "point": {
+                "filled": false,
+                "fill": "white"
+            }
+        },
+
+        "encoding": {
+            "x": {
+                "field": "Year",
+                "type": "ordinal",
+                "title": null
+            },
+            "y": {
+                "aggregate": "mean",
+                "field": {
+                    "repeat": "repeat"
+                },
+                "type": "quantitative"
+
+            },
+            "color": {
+                "field": "Continent",
+                "type": "nominal",
+                "scale": {
+                    "domain": [
+                        "Africa",
+                        "Asia",
+                        "Europe",
+                        "North America",
+                        "Oceania",
+                        "South America"
+                    ],
+                    "range": [
+                        "#6a3d9a",
+                        "#127273",
+                        "#1f77b4",
+                        "#bf130d",
+                        "#c49c94",
+                        "#fca636"
+                    ]
+                }
+            },
+            "tooltip": [{
+                    "field": "Year",
+                    "type": "ordinal"
+                },
+                {
+                    "field": {
+                        "repeat": "repeat"
+                    },
+                    "aggregate": "mean",
+                    "type": "quantitative",
+                    "title": "Average per 1000 people"
+                }
+            ]
+        }
+            
+        
+    },
+
+    "config": {
+        "title": {
+            "font": "sans-serif",
+            "fontSize": 14,
+            "align": "center"
+        },
+        "legend": {
+            "orient": "bottom",
+            "title": null,
+            "layout": {
+                "bottom": {
+                    "anchor": "center"
+                }
+            }
+        }
+    }
+}
